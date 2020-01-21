@@ -39,33 +39,32 @@ it('clears the display when clear button clicked', () => {
   expect(getCalculatorValue()).toBe('');
 });
 
-    expect(getCalculatorValue()).toBe('7');
-  });
+const problems = [
+  {values: [2, 5], operator: '+', result: 7},
+  {values: [2, 5, 8], operator: '+', result: 15},
+  {values: [2, 5, 8, 10], operator: '+', result: 25},
+  {values: [1000, 999, 27654, 256], operator: '+', result: 29909},
+];
 
-  it('can add two numbers', () => {
+problems.forEach(problem => {
+  const problemString = problem.values.join(problem.operator);
+
+  it(`calculates ${problemString}`, () => {
     const {clickCalculatorButton, getCalculatorValue} = renderCalculator();
-    clickCalculatorButton('4');
-    clickCalculatorButton('2');
-    clickCalculatorButton('+');
-    clickCalculatorButton('5');
-    clickCalculatorButton('6');
-    clickCalculatorButton('=');
 
-    expect(getCalculatorValue()).toBe('98');
-  });
+    problem.values.forEach((value, i) => {
+      String(value)
+        .split('')
+        .forEach(digit => clickCalculatorButton(digit));
 
-  it('can add a series of numbers', () => {
-    const {clickCalculatorButton, getCalculatorValue} = renderCalculator();
-    clickCalculatorButton('2');
-    clickCalculatorButton('+');
-    clickCalculatorButton('5');
-    clickCalculatorButton('+');
-    clickCalculatorButton('3');
-    clickCalculatorButton('+');
-    clickCalculatorButton('1');
-    clickCalculatorButton('0');
-    clickCalculatorButton('=');
+      const isLastValue = i === problem.values.length - 1;
+      if (isLastValue) {
+        clickCalculatorButton('=');
+      } else {
+        clickCalculatorButton(problem.operator);
+      }
+    });
 
-    expect(getCalculatorValue()).toBe('20');
+    expect(getCalculatorValue()).toBe(String(problem.result));
   });
 });
