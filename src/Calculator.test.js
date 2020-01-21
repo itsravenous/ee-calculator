@@ -1,16 +1,56 @@
 import React from 'react';
-import {render, fireEvent} from '@testing-library/react';
+import {render, fireEvent, act} from '@testing-library/react';
 import {Calculator} from './Calculator';
 
+const renderCalculator = () => {
+  const renderResult = render(<Calculator />);
+
+  const clickCalculatorButton = text =>
+    act(() => {
+      fireEvent.click(renderResult.getByText(text));
+    });
+  const getCalculatorValue = () => renderResult.getByLabelText('Value').value;
+
+  return {
+    ...renderResult,
+    clickCalculatorButton,
+    getCalculatorValue,
+  };
+};
+
 it('displays initial value of zero', () => {
-  const {getByLabelText} = render(<Calculator />);
-  expect(getByLabelText('Value').value).toBe('0');
+  const {getCalculatorValue} = renderCalculator();
+  expect(getCalculatorValue()).toBe('0');
 });
 
 it('has functioning number buttons', () => {
-  const {getByLabelText, getByText} = render(<Calculator />);
+  const {clickCalculatorButton, getCalculatorValue} = renderCalculator();
   for (let i = 0; i <= 9; i++) {
-    fireEvent.click(getByText(String(i)));
+    clickCalculatorButton(String(i));
   }
-  expect(getByLabelText('Value').value).toBe('0123456789');
+  expect(getCalculatorValue()).toBe('0123456789');
+});
+
+describe('addition', () => {
+  it('can add two digits', () => {
+    const {clickCalculatorButton, getCalculatorValue} = renderCalculator();
+    clickCalculatorButton('2');
+    clickCalculatorButton('+');
+    clickCalculatorButton('5');
+    clickCalculatorButton('=');
+
+    expect(getCalculatorValue()).toBe('7');
+  });
+
+  it('can add two numbers', () => {
+    const {clickCalculatorButton, getCalculatorValue} = renderCalculator();
+    clickCalculatorButton('4');
+    clickCalculatorButton('2');
+    clickCalculatorButton('+');
+    clickCalculatorButton('5');
+    clickCalculatorButton('6');
+    clickCalculatorButton('=');
+
+    expect(getCalculatorValue()).toBe('98');
+  });
 });
