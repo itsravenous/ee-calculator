@@ -11,12 +11,13 @@ export const Calculator = () => {
 
   const handleNumberClick = number => {
     setIsDisplayingResult(false);
-    if (number === '0' && leftValue === '0') return;
 
     if (operator) {
       return setRightValue(`${rightValue || ''}${number}`);
     } else {
-      return setLeftValue(`${leftValue}${number}`);
+      return leftValue === '0'
+        ? setLeftValue(String(number))
+        : setLeftValue(`${leftValue}${number}`);
     }
   };
 
@@ -51,14 +52,14 @@ export const Calculator = () => {
   };
 
   const handleClearClick = () => {
-    setLeftValue();
+    setLeftValue('0');
     setRightValue();
     setOperator();
   };
 
   const displayValue = isDisplayingResult
     ? Math.round(leftValue * 100000000000000) / 100000000000000
-    : (leftValue || '') + (operator || '') + (rightValue || '');
+    : leftValue + (operator || '') + (rightValue || '');
   return (
     <>
       <label htmlFor="value">Value</label>

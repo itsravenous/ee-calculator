@@ -31,7 +31,7 @@ it('has functioning number buttons', () => {
   for (let i = 0; i <= 9; i++) {
     clickCalculatorButton(String(i));
   }
-  expect(getCalculatorValue()).toBe('0123456789');
+  expect(getCalculatorValue()).toBe('123456789');
 });
 
 it('clears the display when clear button clicked', () => {
@@ -39,7 +39,9 @@ it('clears the display when clear button clicked', () => {
   clickCalculatorButton('1');
   clickCalculatorButton('2');
   clickCalculatorButton('C');
-  expect(getCalculatorValue()).toBe('');
+  expect(getCalculatorValue()).toBe('0');
+  clickCalculatorButton('5');
+  expect(getCalculatorValue()).toBe('5');
 });
 
 const problems = [
