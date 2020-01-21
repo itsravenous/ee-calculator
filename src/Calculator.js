@@ -18,22 +18,33 @@ export const Calculator = () => {
     }
   };
 
-  const doAddition = () => {
-    setLeftValue(parseFloat(leftValue) + parseFloat(rightValue));
+  const doProblem = () => {
+    switch (operator) {
+      case '+':
+        setLeftValue(parseFloat(leftValue) + parseFloat(rightValue));
+        break;
+      case '-':
+        setLeftValue(parseFloat(leftValue) - parseFloat(rightValue));
+        break;
+      case '*':
+        setLeftValue(parseFloat(leftValue) * parseFloat(rightValue));
+        break;
+      case '/':
+        setLeftValue(parseFloat(leftValue) / parseFloat(rightValue));
+        break;
+    }
     setOperator();
     setRightValue();
   };
-  const handleAddClick = () => {
+  const handleOperatorClick = operator => {
     if (rightValue) {
-      doAddition();
-      setOperator('+');
-    } else {
-      setOperator('+');
+      doProblem();
     }
+    setOperator(operator);
   };
 
   const handleEqualsClick = () => {
-    doAddition();
+    doProblem();
   };
 
   const handleClearClick = () => {
@@ -55,7 +66,10 @@ export const Calculator = () => {
         </button>
       ))}
 
-      <button onClick={handleAddClick}>+</button>
+      <button onClick={() => handleOperatorClick('+')}>+</button>
+      <button onClick={() => handleOperatorClick('-')}>-</button>
+      <button onClick={() => handleOperatorClick('*')}>×</button>
+      <button onClick={() => handleOperatorClick('/')}>÷</button>
       <button onClick={handleEqualsClick}>=</button>
       <button onClick={handleClearClick} aria-label="Clear">
         C
