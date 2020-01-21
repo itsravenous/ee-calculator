@@ -36,12 +36,18 @@ export const Calculator = () => {
     doAddition();
   };
 
+  const handleClearClick = () => {
+    setLeftValue();
+    setRightValue();
+    setOperator();
+  };
+
   return (
     <>
       <label htmlFor="value">Value</label>
       <input
         id="value"
-        value={leftValue + (operator || '') + (rightValue || '')}
+        value={(leftValue || '') + (operator || '') + (rightValue || '')}
       />
       {numbers.map(number => (
         <button key={number} onClick={() => handleNumberClick(number)}>
@@ -51,6 +57,9 @@ export const Calculator = () => {
 
       <button onClick={handleAddClick}>+</button>
       <button onClick={handleEqualsClick}>=</button>
+      <button onClick={handleClearClick} aria-label="Clear">
+        C
+      </button>
     </>
   );
 };

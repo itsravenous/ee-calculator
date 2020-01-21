@@ -31,13 +31,13 @@ it('has functioning number buttons', () => {
   expect(getCalculatorValue()).toBe('0123456789');
 });
 
-describe('addition', () => {
-  it('can add two digits', () => {
-    const {clickCalculatorButton, getCalculatorValue} = renderCalculator();
-    clickCalculatorButton('2');
-    clickCalculatorButton('+');
-    clickCalculatorButton('5');
-    clickCalculatorButton('=');
+it('clears the display when clear button clicked', () => {
+  const {clickCalculatorButton, getCalculatorValue} = renderCalculator();
+  clickCalculatorButton('1');
+  clickCalculatorButton('2');
+  clickCalculatorButton('C');
+  expect(getCalculatorValue()).toBe('');
+});
 
     expect(getCalculatorValue()).toBe('7');
   });
