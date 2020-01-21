@@ -44,17 +44,17 @@ it('clears the display when clear button clicked', () => {
 
 const problems = [
   {operator: '+', values: [2, 5], result: 7},
-  {operator: '+', values: [2, 5, 8], result: 15},
+  {operator: '+', values: [2.5, 5.2, 8], result: 15.7},
   {operator: '+', values: [2, 5, 8, 10], result: 25},
   {operator: '+', values: [1000, 999, 27654, 256], result: 29909},
 
   {operator: '-', values: [60, 2], result: 58},
   {operator: '-', values: [30, 40], result: -10},
-  {operator: '-', values: [100, 7, 52], result: 41},
-  {operator: '-', values: [4320, 1050, 101, 547], result: 2622},
+  {operator: '-', values: [100.5, 7, 52], result: 41.5},
+  {operator: '-', values: [4320, 1050.72, 101, 547.28], result: 2621},
 
   {operator: '×', values: [4, 2], result: 8},
-  {operator: '×', values: [10, 10], result: 100},
+  {operator: '×', values: [10, 1.245], result: 12.45},
   {operator: '×', values: [3, 2, 4], result: 24},
   {operator: '×', values: [1024, 2, 48, 16], result: 1572864},
 
@@ -62,6 +62,7 @@ const problems = [
   {operator: '÷', values: [256, 10], result: 25.6},
   {operator: '÷', values: [3, 2, 2], result: 0.75},
   {operator: '÷', values: [10000, 2, 10, 4], result: 125},
+  {operator: '÷', values: [1, 3], result: 0.33333333333333},
 ];
 
 problems.forEach(problem => {

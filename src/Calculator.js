@@ -7,8 +7,10 @@ export const Calculator = () => {
   const [leftValue, setLeftValue] = useState('0');
   const [rightValue, setRightValue] = useState();
   const [operator, setOperator] = useState();
+  const [isDisplayingResult, setIsDisplayingResult] = useState(false);
 
   const handleNumberClick = number => {
+    setIsDisplayingResult(false);
     if (number === '0' && leftValue === '0') return;
 
     if (operator) {
@@ -35,6 +37,7 @@ export const Calculator = () => {
     }
     setOperator();
     setRightValue();
+    setIsDisplayingResult(true);
   };
   const handleOperatorClick = operator => {
     if (rightValue) {
@@ -53,18 +56,20 @@ export const Calculator = () => {
     setOperator();
   };
 
+  const displayValue = isDisplayingResult
+    ? Math.round(leftValue * 100000000000000) / 100000000000000
+    : (leftValue || '') + (operator || '') + (rightValue || '');
   return (
     <>
       <label htmlFor="value">Value</label>
-      <input
-        id="value"
-        value={(leftValue || '') + (operator || '') + (rightValue || '')}
-      />
+      <input id="value" value={displayValue} />
       {numbers.map(number => (
         <button key={number} onClick={() => handleNumberClick(number)}>
           {number}
         </button>
       ))}
+
+      <button onClick={() => handleNumberClick('.')}>.</button>
 
       <button onClick={() => handleOperatorClick('+')}>+</button>
       <button onClick={() => handleOperatorClick('-')}>-</button>
