@@ -18,14 +18,22 @@ export const Calculator = () => {
     }
   };
 
-  const handleAddClick = () => {
-    setOperator('+');
-  };
-
-  const handleEqualsClick = () => {
+  const doAddition = () => {
     setLeftValue(parseFloat(leftValue) + parseFloat(rightValue));
     setOperator();
     setRightValue();
+  };
+  const handleAddClick = () => {
+    if (rightValue) {
+      doAddition();
+      setOperator('+');
+    } else {
+      setOperator('+');
+    }
+  };
+
+  const handleEqualsClick = () => {
+    doAddition();
   };
 
   return (

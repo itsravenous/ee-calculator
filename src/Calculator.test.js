@@ -53,4 +53,19 @@ describe('addition', () => {
 
     expect(getCalculatorValue()).toBe('98');
   });
+
+  it('can add a series of numbers', () => {
+    const {clickCalculatorButton, getCalculatorValue} = renderCalculator();
+    clickCalculatorButton('2');
+    clickCalculatorButton('+');
+    clickCalculatorButton('5');
+    clickCalculatorButton('+');
+    clickCalculatorButton('3');
+    clickCalculatorButton('+');
+    clickCalculatorButton('1');
+    clickCalculatorButton('0');
+    clickCalculatorButton('=');
+
+    expect(getCalculatorValue()).toBe('20');
+  });
 });
