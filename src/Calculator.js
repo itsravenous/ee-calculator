@@ -13,8 +13,10 @@ export const Calculator = () => {
     setIsDisplayingResult(false);
 
     if (operator) {
+      if (number === '.' && rightValue.includes('.')) return;
       return setRightValue(`${rightValue || ''}${number}`);
     } else {
+      if (number === '.' && leftValue.includes('.')) return;
       return leftValue === '0'
         ? setLeftValue(String(number))
         : setLeftValue(`${leftValue}${number}`);

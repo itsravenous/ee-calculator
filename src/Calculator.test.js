@@ -34,6 +34,31 @@ it('has functioning number buttons', () => {
   expect(getCalculatorValue()).toBe('123456789');
 });
 
+it('only allows one decimal point to be entered per operand', () => {
+  const {clickCalculatorButton, getCalculatorValue} = renderCalculator();
+  clickCalculatorButton('1');
+  clickCalculatorButton('.');
+  clickCalculatorButton('.');
+  expect(getCalculatorValue()).toBe('1.');
+
+  clickCalculatorButton('0');
+  clickCalculatorButton('2');
+  expect(getCalculatorValue()).toBe('1.02');
+
+  clickCalculatorButton('.');
+  expect(getCalculatorValue()).toBe('1.02');
+
+  clickCalculatorButton('-');
+  clickCalculatorButton('2');
+  clickCalculatorButton('.');
+  clickCalculatorButton('.');
+  clickCalculatorButton('5');
+  expect(getCalculatorValue()).toBe('1.02-2.5');
+
+  clickCalculatorButton('.');
+  expect(getCalculatorValue()).toBe('1.02-2.5');
+});
+
 it('clears the display when clear button clicked', () => {
   const {clickCalculatorButton, getCalculatorValue} = renderCalculator();
   clickCalculatorButton('1');
