@@ -10,7 +10,7 @@ const renderCalculator = () => {
       fireEvent.click(renderResult.getByText(text));
     });
   const clickCalculatorEqualsButton = () =>
-    fireEvent.click(renderResult.getByText('='));
+    fireEvent.click(renderResult.getByAltText('='));
   const getCalculatorValue = () => renderResult.getByLabelText('Value').value;
 
   return {
@@ -100,6 +100,7 @@ problems.forEach(problem => {
       clickCalculatorButton,
       clickCalculatorEqualsButton,
       getCalculatorValue,
+      getByAltText,
     } = renderCalculator();
 
     problem.values.forEach((value, i) => {

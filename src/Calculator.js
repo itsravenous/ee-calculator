@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import './Calculator.css';
+import logo from './logo.svg';
 
-const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+const numbers = ['9', '8', '7', '6', '5', '4', '3', '2', '1', '0'];
 
 export const Calculator = () => {
   const [leftValue, setLeftValue] = useState('0');
@@ -63,25 +64,41 @@ export const Calculator = () => {
     ? Math.round(leftValue * 100000000000000) / 100000000000000
     : leftValue + (operator || '') + (rightValue || '');
   return (
-    <>
-      <label htmlFor="value">Value</label>
-      <input id="value" value={displayValue} />
-      {numbers.map(number => (
-        <button key={number} onClick={() => handleNumberClick(number)}>
-          {number}
+    <div className="c-calculator">
+      <label className="c-calculator__display-label" htmlFor="value">
+        Value
+      </label>
+      <input
+        className="c-calculator__display-value"
+        id="value"
+        value={displayValue}
+        readOnly
+      />
+
+      <div className="c-calculator__controls">
+        <div className="c-calculator__numbers">
+          {numbers.map(number => (
+            <button key={number} onClick={() => handleNumberClick(number)}>
+              {number}
+            </button>
+          ))}
+
+          <button onClick={() => handleNumberClick('.')}>.</button>
+        </div>
+
+        <div className="c-calculator__operators">
+          <button onClick={() => handleOperatorClick('+')}>+</button>
+          <button onClick={() => handleOperatorClick('-')}>-</button>
+          <button onClick={() => handleOperatorClick('*')}>×</button>
+          <button onClick={() => handleOperatorClick('/')}>÷</button>
+          <button onClick={handleEqualsClick}>
+            <img alt="=" src={logo} />
+          </button>
+        </div>
+        <button onClick={handleClearClick} aria-label="Clear">
+          C
         </button>
-      ))}
-
-      <button onClick={() => handleNumberClick('.')}>.</button>
-
-      <button onClick={() => handleOperatorClick('+')}>+</button>
-      <button onClick={() => handleOperatorClick('-')}>-</button>
-      <button onClick={() => handleOperatorClick('*')}>×</button>
-      <button onClick={() => handleOperatorClick('/')}>÷</button>
-      <button onClick={handleEqualsClick}>=</button>
-      <button onClick={handleClearClick} aria-label="Clear">
-        C
-      </button>
-    </>
+      </div>
+    </div>
   );
 };
